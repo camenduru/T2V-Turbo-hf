@@ -5,6 +5,7 @@ transformers==4.40.0
 accelerate==0.29.3
 imageio==2.34.0
 decord==0.6.0
+opencv-python
 spaces
 einops
 omegaconf
