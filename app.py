@@ -26,6 +26,18 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 MAX_SEED = np.iinfo(np.int32).max
 CACHE_EXAMPLES = torch.cuda.is_available() and os.getenv("CACHE_EXAMPLES") == "1"
 
+DESCRIPTION = """# T2V-Turbo 🚀
+We provide T2V-Turbo (VC2) distilled from [VideoCrafter2](https://ailab-cvc.github.io/videocrafter2/) with the reward feedback from [HPSv2.1](https://github.com/tgxs002/HPSv2/tree/master) and [InternVid2 Stage 2 Model](https://huggingface.co/OpenGVLab/InternVideo2-Stage2_1B-224p-f4).
+
+You can download the the models from [here](https://huggingface.co/jiachenli-ucsb/T2V-Turbo-VC2). Check out our [Project page](https://t2v-turbo.github.io) 😄
+"""
+if torch.cuda.is_available():
+    DESCRIPTION += "\n<p>Running on CUDA 😀</p>"
+elif hasattr(torch, "xpu") and torch.xpu.is_available():
+    DESCRIPTION += "\n<p>Running on XPU 🤓</p>"
+else:
+    DESCRIPTION += "\n<p>Running on CPU 🥶 This demo does not work on CPU.</p>"
+
 
 if torch.cuda.is_available():
     config = OmegaConf.load("configs/inference_t2v_512_v2.0.yaml")
@@ -187,10 +199,7 @@ else:
 with gr.Blocks(css="style.css") as demo:
     
     with gr.Column(elem_id="col-container"):
-        gr.Markdown(f"""
-        # Text-to-Image Gradio Template
-        Currently running on {power_device}.
-        """)
+        gr.Markdown(DESCRIPTION)
         
         with gr.Row():
             prompt = gr.Text(
