@@ -17,3 +17,12 @@ rotary_embedding_torch
 torchmetrics
 torch-fidelity
 wandb
+webdataset
+loralib
+peft
+pytorch_lightning
+open_clip_torch
+hpsv2
+peft
+packaging
+kornia
