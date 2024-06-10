@@ -1,7 +1,8 @@
+# Adapted from https://github.com/luosiallen/latent-consistency-model
+
 import os
 import uuid
 from omegaconf import OmegaConf
-import spaces
 
 import random
 
@@ -65,7 +66,6 @@ example_txt = [
 
 examples = [[i, 7.5, 4, 16, 16] for i in example_txt]
 
-@spaces.GPU(duration=300)
 @torch.inference_mode()
 def generate(
     prompt: str,
@@ -204,4 +204,4 @@ if __name__ == "__main__":
         cache_examples=False,
         concurrency_limit=10,
     )
-    demo.launch()
+    demo.queue().launch(share=True)
